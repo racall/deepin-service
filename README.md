@@ -19,11 +19,22 @@ chmod +x ollama.sh
 
 ### 启动chatOllama web ui
 
+首次运行新建目录,目录结构如下:
+```
+├── data
+│   ├── .chatollama
+│   └── chromadb_data
+├── docker-compose.yml
+├── ollama.sh
+├── README.md
+└── services
+```
+
 ```shell
 sudo docker-compose up
 ```
 
-注意:在启动之后，如果`./data/.chatollama`文件夹中，如果没有`chatollama.sqlite`文件，则运行：
+注意:如果是首次启动，在`./data/.chatollama`文件夹中，如果没有`chatollama.sqlite`文件，则运行：
 ```shell
 docker compose exec chatollama npx prisma migrate dev
 ```
