@@ -1,0 +1,32 @@
+services:
+  chromadb:
+    image: chromadb/chroma
+    ports:
+      - "8000:8000"
+    restart: always
+    volumes:
+      - ./data/chromadb_data:/chroma/.chroma/index
+    networks:
+      - default
+
+  chatollama:
+    environment:
+      - CHROMADB_URL=http://chromadb:8000
+      - DATABASE_URL=file:/app/sqlite/chatollama.sqlite
+    image: 0001coder/chatollama:latest
+    ports:
+      - "3000:3000"
+    pull_policy: always
+    restart: always
+    volumes:
+      - ./data/.chatollama:/app/sqlite
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
