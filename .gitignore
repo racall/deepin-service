@@ -1,2 +1,3 @@
 data/.chatollama/**/*
 data/chromadb_data/**/*
+data/open-webui/**/*

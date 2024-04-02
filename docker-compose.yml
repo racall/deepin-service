@@ -1,29 +1,53 @@
 services:
-  chromadb:
-    image: chromadb/chroma
-    ports:
-      - "8000:8000"
-    restart: always
+  open-webui:
+    image: ghcr.m.daocloud.io/open-webui/open-webui:main
+    container_name: open-webui
     volumes:
-      - ./data/chromadb_data:/chroma/.chroma/index
+      - ./data/open-webui:/app/backend/data
+    # depends_on:
+    #   - ollama
+    ports:
+      - 3000:8080
+    environment:
+      - 'HTTP_PROXY=http://172.17.0.1:7897'
+      - 'HTTPS_PROXY=http://172.17.0.1:7897'
+      - 'NO_PROXY=localhost,127.0.0.1'
+    #   - 'OLLAMA_BASE_URL=http://ollama:11434'
+    #   - 'WEBUI_SECRET_KEY='
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    restart: always
     networks:
       - default
 
-  chatollama:
-    environment:
-      - CHROMADB_URL=http://chromadb:8000
-      - DATABASE_URL=file:/app/sqlite/chatollama.sqlite
-    image: 0001coder/chatollama:latest
-    ports:
-      - "3000:3000"
-    pull_policy: always
-    restart: always
-    volumes:
-      - ./data/.chatollama:/app/sqlite
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    networks:
-      - default
+  # chromadb:
+  #   image: chromadb/chroma
+  #   container_name: chromadb
+  #   ports:
+  #     - "8000:8000"
+  #   restart: always
+  #   volumes:
+  #     - ./data/chromadb_data:/chroma/.chroma/index
+  #   networks:
+  #     - default
+
+  # chatollama:
+  #   environment:
+  #     - CHROMADB_URL=http://chromadb:8000
+  #     - DATABASE_URL=file:/app/sqlite/chatollama.sqlite
+  #   image: 0001coder/chatollama:latest
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - chromadb
+  #   pull_policy: always
+  #   restart: always
+  #   volumes:
+  #     - ./data/.chatollama:/app/sqlite
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway"
+  #   networks:
+  #     - default
 
 networks:
   default:

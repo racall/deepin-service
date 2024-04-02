@@ -16,6 +16,21 @@ chmod +x ollama.sh
 #执行
 ./ollama.sh
 ```
+### docker代理
+
+```
+mirrors.nju.edu.cn
+daocloud.io/
+```
+
+### open-webui
+
+```shell
+#docker-compose.yml environment中设置本机穿墙代理，否则无法下载huggingface中模型，会导致运行失败
+#data目录中新增open-webui目录
+#LiteLLM是各种大模型代理
+https://docs.openwebui.com/tutorial/litellm
+```
 
 ### 启动chatOllama web ui
 
@@ -59,3 +74,5 @@ text-embedding-ada-002
 [chatOllama仓库](https://github.com/sugarforever/chat-ollama/)
 
 [Ollama仓库](https://github.com/ollama/ollama)
+
+[Open Web UI](https://github.com/open-webui/open-webui)
