@@ -24,15 +24,21 @@ daocloud.io/
 ```
 
 ### open-webui
+`注意：运行open-webui后无需在运行chatOllama`
 
-```shell
-#docker-compose.yml environment中设置本机穿墙代理，否则无法下载huggingface中模型，会导致运行失败
-#data目录中新增open-webui目录
-#LiteLLM是各种大模型代理
-https://docs.openwebui.com/tutorial/litellm
+* 首次运行新建目录,目录结构如下:
 ```
+├── data
+│   └── open-webui
+├── docker-compose.yml
+├── ollama.sh
+├── README.md
+└── services
+```
+* docker-compose.yml的environment中设置本机穿墙代理，否则无法下载huggingface中模型，会导致运行失败
 
-### 启动chatOllama web ui
+
+### 启动chatOllama
 
 首次运行新建目录,目录结构如下:
 ```
@@ -76,3 +82,5 @@ text-embedding-ada-002
 [Ollama仓库](https://github.com/ollama/ollama)
 
 [Open Web UI](https://github.com/open-webui/open-webui)
+
+[LiteLLM](https://docs.openwebui.com/tutorial/litellm)
